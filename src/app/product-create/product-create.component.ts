@@ -33,15 +33,20 @@ export class ProductCreateComponent {
 
     public createProductoForm: FormGroup = this.formBuilder.group({
         nombre: ['', Validators.required],
-        precio: [0, Validators.required],
+        precio: [0, [Validators.min(1), Validators.required]],
         cantidadEnStock: [0, Validators.required],
-        codigosBarras: this.formBuilder.array([], Validators.required),
+        codigosBarras: this.formBuilder.array([]),
     });
 
     get codigosBarras(): FormArray<FormControl<string>> {
         return this.createProductoForm.get('codigosBarras') as FormArray<
             FormControl<string>
         >;
+    }
+
+    public deleteCodigoBarra(index: number) {
+        this.codigosBarras.removeAt(index)
+
     }
 
     public addCodigoBarra(): void {

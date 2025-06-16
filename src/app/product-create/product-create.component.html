@@ -20,12 +20,11 @@
       @for (codigo of codigosBarras.controls; track $index) {
         <div class="input-group">
           <input
-            #inputCodigo
             type="text"
             class="form-control"
             [formControl]="codigo"
           /> 
-          <button type="button" class="btn btn-outline-danger">
+          <button type="button" (click)="deleteCodigoBarra($index)" class="btn btn-outline-danger">
             Eliminar
           </button>
         </div>
@@ -35,6 +34,8 @@
       </button>
     </div>
   </div>
-
-  <button type="submit" class="btn btn-primary mt-3">Crear producto</button>
+  @if ( !createProductoForm.valid ) {
+    <p class="text-danger">Formulario inválido</p>
+  }
+  <button type="submit" [disabled]="!createProductoForm.valid" class="btn btn-primary mt-3">Crear producto</button>
 </form>
