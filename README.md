@@ -8,7 +8,7 @@
 
 1. Clone the project 
 ```bash
-git clone
+git clone https://github.com/Ezefeola/FarmacityTestFrontend.git
 cd farmacity-test-frontend
 npm install 
 ```
