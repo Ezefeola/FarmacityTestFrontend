@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <router-link routerLink="producto/create" class="btn btn-primary mb-3">Crear producto</router-link>
+  <h2 class="mb-4">Lista de Productos</h2>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @for (producto of productos(); track producto.productoId) {
+    <div class="col">
+      <div class="card h-100 shadow-sm border-primary">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <h5 class="card-title text-primary">{{ producto.nombre }}</h5>
+            <div class="d-flex gap-2"> 
+              <button class="btn btn-danger bi bi-trash" (click)="deleteProduct(producto.productoId)"></button>
+              <router-link [routerLink]="['producto/edit', producto.productoId]" class="btn btn-primary bi bi-pencil" ></router-link>
+            </div>
+          </div>
+          <p class="card-text">
+            <strong>Precio:</strong> ${{ producto.precio }} <br />
+            <strong>Stock:</strong> {{ producto.cantidadEnStock }} <br />
+            <strong style="margin-right: 6px;">Estado:</strong>
+            <span class="badge" [ngClass]="producto.activo ? 'bg-success' : 'bg-secondary'">
+              {{ producto.activo ? 'Activo' : 'Inactivo' }}
+            </span><br />
+            <strong>Fecha Alta:</strong> {{ producto.fechaAlta | date:'shortDate' }}
+          </p>
+          @if (producto.codigosBarras.length > 0) {
+            <div>
+              <h6>Códigos de barra</h6>
+              <ul class="list-group list-group-flush">
+                @for (codigo of producto.codigosBarras; track codigo.codigoBarraId) {
+                <li class="list-group-item">{{ codigo.codigo }}</li>
+                }
+              </ul>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>

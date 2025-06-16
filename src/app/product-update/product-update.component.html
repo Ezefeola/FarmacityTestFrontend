@@ -1,0 +1,41 @@
+<h3 class="mb-3">Editar el producto: {{producto()?.nombre}}</h3>
+<form [formGroup]="updateProductoForm" (ngSubmit)="onSubmit()" class="card card-body gap-3">
+  <div class="mb-3">
+    <label for="nombre" class="form-label">Nombre</label>
+    <input id="nombre" formControlName="nombre" class="form-control" required />
+  </div>
+
+  <div class="mb-3">
+    <label for="precio" class="form-label">Precio</label>
+    <input id="precio" formControlName="precio" type="number" class="form-control" required />
+  </div>
+
+  <div class="mb-3">
+    <label for="cantidad" class="form-label">Cantidad en stock</label>
+    <input id="cantidad" formControlName="cantidadEnStock" type="number" class="form-control" required />
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Códigos de barra</label>
+    <div class="d-flex flex-column gap-2">
+      @for (codigo of codigosBarras.controls; track $index) {
+      <div class="input-group" [formGroup]="codigo">
+        <input #inputCodigo type="text" class="form-control" formControlName="codigo" />
+        <button type="button" (click)="deleteCodigoBarra($index, codigo.controls.codigoBarraId.value!)" class="btn btn-outline-danger">
+          Eliminar
+        </button>
+      </div>
+      }
+      <button type="button" class="btn btn-outline-secondary mt-2" (click)="addCodigoBarra()">
+        + Agregar código
+      </button>
+    </div>
+  </div>
+
+  @if (!updateProductoForm.valid) {
+    <p class="text-danger">Formulario inválido</p>
+
+  }
+
+  <button type="submit" [disabled]="!updateProductoForm.valid" class="btn btn-primary mt-3">Guardar</button>
+</form>
